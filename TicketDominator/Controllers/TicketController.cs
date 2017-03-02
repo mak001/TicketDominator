@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TicketDominator.Models;
 
 // TODO
 
@@ -13,7 +14,10 @@ namespace TicketDominator.Controllers
         // GET: Ticket
         public ActionResult Index()
         {
-            return View();
+			using (TicketDominatorContext context = new TicketDominatorContext()) {
+				var list = context.Tickets.OrderBy(x => x.Artist).ToList();
+				return View(list);
+			}
         }
 
         // GET: Ticket/Details/5
