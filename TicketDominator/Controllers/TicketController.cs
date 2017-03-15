@@ -23,7 +23,12 @@ namespace TicketDominator.Controllers
         // GET: Ticket/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            Ticket result = null;
+            using (TicketDominatorContext context = new TicketDominatorContext())
+            {
+                result = context.Tickets.FirstOrDefault(x => x.Id == id);
+            }
+            return View(result);
         }
 
         // GET: Ticket/Create
@@ -101,6 +106,16 @@ namespace TicketDominator.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        // GET: Ticket/CustomerList
+        public ActionResult CustomerList()
+        {
+            using (TicketDominatorContext context = new TicketDominatorContext())
+            {
+                var list = context.Tickets.OrderBy(x => x.Artist).ToList();
+                return View(list);
             }
         }
     }

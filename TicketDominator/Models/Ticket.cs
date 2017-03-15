@@ -11,8 +11,11 @@ namespace TicketDominator.Models
 
 		[Key]
 		public int Id { get; set; }
-		public float Price { get; set; }
-		public string Artist { get; set; }
-		public string Venue { get; set; }
+        public string Artist { get; set; }
+        public string Venue { get; set; }
+        public DateTime Date { get; set; }
+        public float Price { get; set; }
+        public int Amount { get; set; }
+		
     }
 }

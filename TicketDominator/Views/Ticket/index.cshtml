@@ -18,7 +18,13 @@
             @Html.DisplayNameFor(model => model.Venue)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
         </th>
 
         <th></th>
@@ -33,7 +39,13 @@
                     @Html.DisplayFor(modelItem => item.Venue)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id  }) |

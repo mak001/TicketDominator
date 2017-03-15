@@ -274,6 +274,8 @@
     <Content Include="Views\Ticket\Create.cshtml" />
     <Content Include="Views\Ticket\Edit.cshtml" />
     <Content Include="Views\Ticket\Delete.cshtml" />
+    <Content Include="Views\Ticket\CustomerList.cshtml" />
+    <Content Include="Views\Ticket\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
