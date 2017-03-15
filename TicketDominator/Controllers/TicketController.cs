@@ -29,18 +29,23 @@ namespace TicketDominator.Controllers
         // GET: Ticket/Create
         public ActionResult Create()
         {
-            return View();
+            using (TicketDominatorContext context = new TicketDominatorContext()) {
+                return View();
+            }
         }
 
         // POST: Ticket/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Ticket obj)
         {
             try
             {
                 // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                using (TicketDominatorContext context = new TicketDominatorContext()) {
+                    context.Tickets.Add(obj);
+                    context.SaveChanges();
+                    return RedirectToAction("Index");
+                }    
             }
             catch
             {
@@ -51,18 +56,25 @@ namespace TicketDominator.Controllers
         // GET: Ticket/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Ticket result = null;
+            using (TicketDominatorContext context = new TicketDominatorContext()) {
+                result = context.Tickets.FirstOrDefault(x => x.Id == id);
+            }
+            return View(result);
         }
 
         // POST: Ticket/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(int id, Ticket obj)
         {
             try
             {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
+                using (TicketDominatorContext context = new TicketDominatorContext()) {
+                    var item = context.Tickets.FirstOrDefault(x => x.Id == id);
+                    TryUpdateModel(item);
+                    context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
             catch
             {
