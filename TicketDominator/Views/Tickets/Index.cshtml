@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TicketDominator.Models.Ticket>
+﻿@model PagedList.IPagedList<TicketDominator.Models.Ticket>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
@@ -7,26 +8,27 @@
 <h2>Index</h2>
 
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Artist)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Venue)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Amount)
-        </th>
-
-        <th></th>
-    </tr>
     @if (Model != null) {
+        var first = Model.FirstOrDefault();
+        <tr>
+            <th>
+                @Html.ActionLink(Html.DisplayNameFor(modelItem => first.Artist).ToString(), "Index", new { sortExp = "artist", sortOrder = (ViewBag.SortExpression == "artist" ? (ViewBag.SortOrder == "desc" ? "asc" : "desc"): "asc") })
+            </th>
+            <th>
+                @Html.ActionLink(Html.DisplayNameFor(modelItem => first.Venue).ToString(), "Index", new { sortExp = "venue", sortOrder = (ViewBag.SortExpression == "venue" ? (ViewBag.SortOrder == "desc" ? "asc" : "desc") : "asc") })
+            </th>
+            <th>
+                @Html.ActionLink(Html.DisplayNameFor(modelItem => first.Date).ToString(), "Index", new { sortExp = "date", sortOrder = (ViewBag.SortExpression == "date" ? (ViewBag.SortOrder == "desc" ? "asc" : "desc") : "asc") })
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => first.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(modelItem => first.Amount)
+            </th>
+
+            <th></th>
+        </tr>
         foreach (var item in Model) {
             <tr>
                 <td>
@@ -51,3 +53,7 @@
         }
     }
 </table>
+
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortExp = ViewBag.SortExpression }))
