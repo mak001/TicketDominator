@@ -23,9 +23,14 @@ namespace TicketDominator
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+			bundles.Add(new ScriptBundle("~/bundles/bootstrap-datetimepicker").Include(
+					  "~/Scripts/moment.min.js",
+					  "~/Scripts/bootstrap-datetimepicker.min.js"));
+
+			bundles.Add(new StyleBundle("~/Content/css").Include(
+                      "~/Content/bootstrap.min.css",
+					  "~/Content/bootstrap-datetimepicker.min.css",
+					  "~/Content/site.css"));
         }
     }
 }
