@@ -13,11 +13,18 @@ namespace TicketDominator
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Ticket", action = "CustomerList", id = UrlParameter.Optional }
-            );
+			routes.MapRoute(
+				"AdminTicket",
+				"Admin/Tickets/{action}/{id}",
+				new { controller = "AdminTickets", action = "Index", id = UrlParameter.Optional }
+			);
+
+			routes.MapRoute(
+				name: "Default",
+				url: "{controller}/{action}/{id}",
+				defaults: new { controller = "Tickets", action = "Index", id = UrlParameter.Optional }
+			);
+
         }
     }
 }
