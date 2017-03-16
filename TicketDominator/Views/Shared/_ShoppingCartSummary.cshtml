@@ -1,0 +1,11 @@
+﻿@model TicketDominator.Models.ShoppingCartSummary
+
+@if (Model != null && Model.Quantity > 0)
+{
+    <span># in Cart: @Model.Quantity</span>
+    <span class="moveLeft">Value: @Model.TotalValue.ToString("C")</span>
+}
+else
+{
+    <span>Your cart is empty</span>
+}

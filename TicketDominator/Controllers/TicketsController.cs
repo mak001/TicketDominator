@@ -11,11 +11,9 @@ namespace TicketDominator.Controllers
     public class TicketsController : Controller
     {
         // GET: Tickets
-        public ActionResult Index(int pageNumber = 1, int pageQty = 12, string sortExp = "date", string sortOrder = "asc")
+        public ActionResult Index(int page = 1, int pageQty = 12, string sortExp = "date", string sortOrder = "asc")
         {
 			using (TicketDominatorContext context = new TicketDominatorContext()) {
-				ViewBag.PageSize = pageQty;
-				ViewBag.PageNumber = pageNumber;
 				ViewBag.SortExpression = sortExp;
 				ViewBag.SortOrder = sortOrder;
 
@@ -49,7 +47,7 @@ namespace TicketDominator.Controllers
 						break;
 				}
 
-				return View(items.ToPagedList(pageNumber, pageQty));
+				return View(items.ToPagedList(page, pageQty));
 			}
 		}
 

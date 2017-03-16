@@ -23,6 +23,8 @@ namespace TicketDominator.Models
         // public virtual DbSet<MyEntity> MyEntities { get; set; }
 
         public virtual DbSet<Ticket> Tickets { get; set; }
+        public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
     }
 
     //public class MyEntity

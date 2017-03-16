@@ -51,6 +51,15 @@
         </dd>
 
     </dl>
+
+    @Ajax.ActionLink("Add to Cart", "AddToCart", "ShoppingCart", new { @model.Id }, new AjaxOptions
+        {
+            UpdateTargetId = "shoppingcartsummary",
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "Get",
+            OnBegin = "fadeOutShoppingCartSummary",
+            OnSuccess = "fadInShoppingCartSummary"
+        }, new { @class = "inline-block" })
 </div>
 <p>
     @Html.ActionLink("Back to List", "Index")

@@ -24,7 +24,7 @@
                     <li>@Html.ActionLink("Tickets", "Index", "Tickets")</li>
                     <li>@Html.ActionLink("Admin", "Index", "AdminTickets")</li>
                 </ul>
-                @Html.Partial("_LoginPartial")
+                <span id="shoppingcartsummary">@Html.Action("Index", "ShoppingCart")</span>
             </div>
         </div>
     </div>
@@ -39,6 +39,7 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/bootstrap-datetimepicker")
+    @Scripts.Render("~/bundles/jqueryajax");
     @RenderSection("scripts", required: false)
     <script>
         $(function () {
