@@ -20,6 +20,12 @@ namespace TicketDominator
 			);
 
 			routes.MapRoute(
+				"ShoppingCart",
+				"Cart/{action}/{id}",
+				new { controller = "ShoppingCart", action = "Index", id = UrlParameter.Optional }
+			);
+
+			routes.MapRoute(
 				name: "Default",
 				url: "{controller}/{action}/{id}",
 				defaults: new { controller = "Tickets", action = "Index", id = UrlParameter.Optional }

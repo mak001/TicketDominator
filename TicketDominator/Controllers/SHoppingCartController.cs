@@ -27,14 +27,21 @@ namespace TicketDominator.Controllers
         // GET: SHoppingCart
         public ActionResult Index()
         {
-            using (TicketDominatorContext context = new TicketDominatorContext())
-            {
-                ShoppingCartSummary summary = GetShoppingCartSummary(context);
-                return PartialView("_ShoppingCartSummary", summary);
-            }
+			using (TicketDominatorContext context = new TicketDominatorContext()) {
+				var carts = context.ShoppingCarts.Include("Ticket").Where(x => x.UserId == UserId);
+				return View(carts.ToList());
+			}
         }
 
-        public ActionResult AddToCart(int id)
+		public ActionResult Partial() {
+			using (TicketDominatorContext context = new TicketDominatorContext()) {
+				ShoppingCartSummary summary = GetShoppingCartSummary(context);
+				return PartialView("_ShoppingCartSummary", summary);
+			}
+		}
+
+
+		public ActionResult AddToCart(int id)
         {
             using (TicketDominatorContext context = new TicketDominatorContext())
             {
