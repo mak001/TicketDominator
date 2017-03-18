@@ -15,10 +15,13 @@
             @Html.DisplayNameFor(model => model.Ticket.Venue)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.DateAdded)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Quantity)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DateAdded)
+            @Html.DisplayNameFor(model => model.Ticket.Price)
         </th>
         <th></th>
     </tr>
@@ -31,16 +34,34 @@
         <td>
             @Html.DisplayFor(model => item.Ticket.Venue)
         </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.DateAdded)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Quantity)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DateAdded)
+            $@Html.DisplayFor(modelItem => item.Ticket.Price)
         </td>
         <td>
             <!--@Html.ActionLink("Delete", "Delete", new { id=item.Id })-->
         </td>
     </tr>
 }
-
+    <tr>
+        <th colspan="6">
+            Total
+        </th>
+    </tr>
+    <tr>
+        <td colspan="3"></td>
+        <td>
+            @ViewBag.Summary.Quantity
+        </td>
+        <td>
+            $@ViewBag.Summary.TotalValue
+        </td>
+        <td></td>
+    </tr>
 </table>

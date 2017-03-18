@@ -410,7 +410,7 @@
     <Content Include="Views\AdminTickets\Edit.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
-    <Content Include="Views\Shared\_ShoppingCartSummary.cshtml" />
+    <Content Include="Views\ShoppingCart\_AjaxCartSummary.cshtml" />
     <Content Include="Views\ShoppingCart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
