@@ -73,12 +73,15 @@ namespace TicketDominator.Controllers
                 return View(model);
             }
 
+			Guid currTempId = Controllers.UserHelper.GetUserId();
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
+					var user = SignInManager.UserManager.FindByEmail(model.Email);
+					Controllers.UserHelper.TransferTemporaryUserToRealUser(currTempId, user.Id);
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -152,9 +155,11 @@ namespace TicketDominator.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+				Guid oldTempUserId = Controllers.UserHelper.GetUserId();
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+					Controllers.UserHelper.TransferTemporaryUserToRealUser(oldTempUserId, user.Id);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

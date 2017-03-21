@@ -10,7 +10,7 @@ namespace TicketDominator.Controllers
 {
     public class ShoppingCartController : Controller
     {
-        private Guid UserId = Guid.Empty;
+        private Guid UserId = UserHelper.GetUserId();
 
         private ShoppingCartSummary GetShoppingCartSummary(TicketDominatorContext context)
         {
@@ -73,6 +73,15 @@ namespace TicketDominator.Controllers
                 return PartialView("_AjaxCartSummary", summary);
             }
         }
+
+
+		[Authorize]
+		[HttpGet]
+		public ActionResult Checkout() {
+			using (TicketDominatorContext context = new TicketDominatorContext()) {
+				return null;
+			}
+		}
 
     }
 }

@@ -23,8 +23,9 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Tickets", "Index", "Tickets")</li>
                     <li>@Html.ActionLink("Admin", "Index", "AdminTickets")</li>
+                    <li>@Html.ActionLink("Cart", "Index", "ShoppingCart")</li>
                 </ul>
-                <span id="shoppingcartsummary">@Html.Action("Partial", "ShoppingCart")</span>
+                <div id="shoppingcartsummary" class="navbar-right">@Html.Action("Partial", "ShoppingCart")</div>
             </div>
         </div>
     </div>
