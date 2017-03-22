@@ -21,11 +21,19 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Tickets", "Index", "Tickets")</li>
-                    <li>@Html.ActionLink("Admin", "Index", "AdminTickets")</li>
-                    <li>@Html.ActionLink("Cart", "Index", "ShoppingCart")</li>
+                    @if (User.IsInRole("Admin")) {
+                        <li>@Html.ActionLink("Admin", "Index", "AdminTickets")</li>
+                    } else {
+                        <li>@Html.ActionLink("Tickets", "Index", "Tickets")</li>
+                        <li>@Html.ActionLink("Cart", "Index", "ShoppingCart")</li>
+                    }
                 </ul>
-                <div id="shoppingcartsummary" class="navbar-right">@Html.Action("Partial", "ShoppingCart")</div>
+                @if (!User.IsInRole("Admin")) {
+                    <div id="shoppingcartsummary" class="navbar-right">@Html.Action("Partial", "ShoppingCart")</div>
+                }
+            </div>
+            <div>
+                @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>

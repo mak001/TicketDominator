@@ -78,8 +78,28 @@ namespace TicketDominator.Controllers
 		[Authorize]
 		[HttpGet]
 		public ActionResult Checkout() {
+			Guid UserId = UserHelper.GetUserId();
+			ViewBag.ApplicationUser = UserHelper.GetApplicationUser();
+			ViewBag.CheckingOut = true;
+
 			using (TicketDominatorContext context = new TicketDominatorContext()) {
-				return null;
+				var shoppingCartItems = context.ShoppingCarts.Where(x => x.UserId == UserId);
+
+				Order newOrder = new Order {
+					OrderDate = DateTime.Now,
+					UserId = UserId,
+					OrderDetails = new List<OrderDetail>()
+				};
+
+				foreach (var item in shoppingCartItems) {
+					OrderDetail od = new OrderDetail {
+						Ticket = item.Ticket,
+						PricePaidEach = item.Ticket.Price,
+						Quantity = item.Quantity
+					};
+					newOrder.OrderDetails.Add(od);
+				}
+				return View("Details", newOrder);
 			}
 		}
 

@@ -1,0 +1,31 @@
+﻿@model TicketDominator.Models.Order
+
+@{
+    TicketDominator.Models.ApplicationUser au = ViewBag.ApplicationUser;
+}
+
+<h1>Checkout</h1>
+@using (Html.BeginForm()) {
+
+    <div>@au.Email</div>
+
+    <table>
+        <tr>
+            <th>Artist</th>
+            <th>Venue</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+        @foreach (var order in Model.OrderDetails) {
+            <tr>
+                <td>@Html.DisplayFor(modelorder => order.Ticket.Artist)</td>
+                <td>@Html.DisplayFor(modelorder => order.Ticket.Venue)</td>
+                <td>@Html.DisplayFor(modelorder => order.Quantity)</td>
+                <td>@Html.DisplayFor(modelorder => order.PricePaidEach)</td>
+            </tr>
+        }
+    </table>
+    <p>
+        <input type="submit" value="Complete Order" class="btn btn-default" />
+    </p>
+}

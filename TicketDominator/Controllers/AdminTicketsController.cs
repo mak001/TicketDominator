@@ -7,7 +7,8 @@ using TicketDominator.Models;
 
 namespace TicketDominator.Controllers
 {
-    public class AdminTicketsController : Controller
+	[Authorize(Roles = "Admin")]
+	public class AdminTicketsController : Controller
     {
         // GET: AdminTickets
         public ActionResult Index()
