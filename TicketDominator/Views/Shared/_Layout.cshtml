@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using TicketDominator.Models
+@{
+    bool userIsCheckingOut = ViewBag.AmCheckingOut == null ? false : true;
+ }
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -28,7 +32,7 @@
                         <li>@Html.ActionLink("Cart", "Index", "ShoppingCart")</li>
                     }
                 </ul>
-                @if (!User.IsInRole("Admin")) {
+                @if (!User.IsInRole("Admin") && !userIsCheckingOut) {
                     <div id="shoppingcartsummary" class="navbar-right">@Html.Action("Partial", "ShoppingCart")</div>
                 }
             </div>

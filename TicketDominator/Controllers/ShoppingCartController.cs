@@ -83,7 +83,7 @@ namespace TicketDominator.Controllers
 			ViewBag.CheckingOut = true;
 
 			using (TicketDominatorContext context = new TicketDominatorContext()) {
-				var shoppingCartItems = context.ShoppingCarts.Where(x => x.UserId == UserId);
+				var shoppingCartItems = context.ShoppingCarts.Include("Ticket").Where(x => x.UserId == UserId);
 
 				Order newOrder = new Order {
 					OrderDate = DateTime.Now,
@@ -100,6 +100,41 @@ namespace TicketDominator.Controllers
 					newOrder.OrderDetails.Add(od);
 				}
 				return View("Details", newOrder);
+			}
+		}
+
+		[Authorize]
+		[HttpPost]
+		public ActionResult Checkout(Order order) {
+			Guid UserID = UserHelper.GetUserId();
+			ViewBag.ApplicationUser = UserHelper.GetApplicationUser();
+
+			using (TicketDominatorContext context = new TicketDominatorContext()) {
+				var shoppingCartTickets = context.ShoppingCarts.Include("Ticket").Where(x => x.UserId == UserId);
+				order.OrderDetails = new List<OrderDetail>();
+
+				order.UserId = UserId;
+				order.OrderDate = DateTime.Now;
+
+				foreach (var ticket in shoppingCartTickets) {
+					int quantity = 0;
+					int.TryParse(Request.Form.Get(ticket.Ticket.Id.ToString()), out quantity);
+
+					if (quantity > 0) {
+						OrderDetail od = new OrderDetail {
+							Ticket = ticket.Ticket,
+							PricePaidEach = ticket.Ticket.Price,
+							Quantity = quantity
+						};
+						order.OrderDetails.Add(od);
+					}
+				}
+
+				order = context.Orders.Add(order);
+				context.ShoppingCarts.RemoveRange(shoppingCartTickets);
+				context.SaveChanges();
+
+				return RedirectToAction("Details", "Order", new { id = order.Id });
 			}
 		}
 
