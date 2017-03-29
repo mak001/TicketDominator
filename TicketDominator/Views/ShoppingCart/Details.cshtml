@@ -20,7 +20,9 @@
             <tr>
                 <td>@Html.DisplayFor(modelorder => order.Ticket.Artist)</td>
                 <td>@Html.DisplayFor(modelorder => order.Ticket.Venue)</td>
-                <td>@Html.DisplayFor(modelorder => order.Quantity)</td>
+                <td>
+                    <input type="text" value="@order.Quantity" id="@order.Ticket.Id" name="@order.Ticket.Id" />
+                </td>
                 <td>@Html.DisplayFor(modelorder => order.PricePaidEach)</td>
             </tr>
         }

@@ -1,0 +1,39 @@
+﻿@model TicketDominator.Models.Order
+@{
+    TicketDominator.Models.ApplicationUser au = ViewBag.ApplicationUser;
+}
+<div>
+    @if (Model != null) {
+    <h4>Order #@Model.Id</h4>
+    <hr />
+    <div>@au.Email</div>
+    <br />
+
+    <div>
+        <span class="left">
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </span>
+        <span class="right">
+            @Html.DisplayFor(model => model.OrderDate)
+        </span>
+    </div>
+
+    <table class="table">
+        <tr>
+            <th>Artist</th>
+            <th>Venue</th>
+            <th>Quantity</th>
+            <th>Price</th>
+        </tr>
+
+        @foreach (var detail in Model.OrderDetails) {
+            <tr>
+                <td>@Html.DisplayFor(d => detail.Ticket.Artist)</td>
+                <td>@Html.DisplayFor(d => detail.Ticket.Venue)</td>
+                <td>@Html.DisplayFor(d => detail.Quantity)</td>
+                <td>@Html.DisplayFor(d => detail.PricePaidEach)</td>
+            </tr>
+            }
+    </table>
+    }
+</div>
