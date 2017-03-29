@@ -1,12 +1,28 @@
-﻿body {
-    padding-top: 100px;
-    padding-bottom: 20px;
+﻿header .jumbotron {
+    margin: 0;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+header + nav {
+    background-color: black;
+}
+
+header+nav .container {
+    width: 100%;
+}
+
+header+nav .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,<svg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'><path stroke='rgba(255, 255, 255, 1.0)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/></svg>")
+}
+
+header + nav .nav-link {
+    font-weight: 500;
+    color: white;
+    transition: background-color 500ms, color 500ms;
+}
+
+header + nav .nav-link:hover {
+    color: black;
+    background-color: white;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 

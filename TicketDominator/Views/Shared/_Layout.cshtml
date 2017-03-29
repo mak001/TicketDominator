@@ -1,6 +1,7 @@
 ﻿@using TicketDominator.Models
 @{
     bool userIsCheckingOut = ViewBag.AmCheckingOut == null ? false : true;
+    var homeLink = User.IsInRole("Admin") ? Url.Action("Index", "AdminTickets", "Admin") : Url.Action("Index", "Tickets", "Tickets");
  }
 <!DOCTYPE html>
 <html>
@@ -13,41 +14,50 @@
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Ticket Dominator", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <header>
+        <a href="@homeLink">
+            <div class="jumbotron jumbotron-fluid bg-warning text-center">
+                <div class="container">
+                    <h1 class="display-4 display-sm-3 md-display-2">Ticket Dominator</h1>
+
+                    <p class="lead">Tagline here</p>
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    @if (User.IsInRole("Admin")) {
-                        <li>@Html.ActionLink("Admin", "Index", "AdminTickets")</li>
-                    } else {
-                        <li>@Html.ActionLink("Tickets", "Index", "Tickets")</li>
-                        <li>@Html.ActionLink("Cart", "Index", "ShoppingCart")</li>
+        </a>
+    </header>
+
+    <nav class="navbar navbar-toggleable-sm sticky-top py-0">
+        <div class="container p-0 m-0">
+            <button class="navbar-toggler collapsed" data-toggle="collapse" data-target="#mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="mainNav" aria-expanded="false">
+                <div class="navbar-nav mx-auto text-center">
+
+                    <a class="nav-item nav-link px-3" href="@homeLink">Home</a>
+
+                    @if (!User.IsInRole("Admin")) {
+
+                        @Html.ActionLink("Cart", "Index", "ShoppingCart", new { area = "" }, new { @class = "nav-item nav-link px-3" })
+                        if (User.Identity.IsAuthenticated) {
+                            @Html.ActionLink("Orders", "Index", "Order", new { area = "" }, new { @class = "nav-item nav-link px-3" })
+                        }
                     }
-                </ul>
-                @if (!User.IsInRole("Admin") && !userIsCheckingOut) {
-                    <div id="shoppingcartsummary" class="navbar-right">@Html.Action("Partial", "ShoppingCart")</div>
-                }
-            </div>
-            <div>
-                @Html.Partial("_LoginPartial")
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
+    </nav>
+
+    <main class="container my-4">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Ticket Dominator</p>
-        </footer>
-    </div>
+        
+    </main>
+
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Ticket Dominator</p>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
