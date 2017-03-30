@@ -10,62 +10,50 @@
 
 <h2>Index</h2>
 
-<table class="table">
-    @if (Model != null) {
-        var first = Model.FirstOrDefault();
-        <tr>
-            <th>
-                @Html.ActionLink(Html.DisplayNameFor(modelItem => first.Artist).ToString(), "Index", new { sortExp = "artist", sortOrder = (ViewBag.SortExpression == "artist" ? (ViewBag.SortOrder == "desc" ? "asc" : "desc"): "asc") })
-            </th>
-            <th>
-                @Html.ActionLink(Html.DisplayNameFor(modelItem => first.Venue).ToString(), "Index", new { sortExp = "venue", sortOrder = (ViewBag.SortExpression == "venue" ? (ViewBag.SortOrder == "desc" ? "asc" : "desc") : "asc") })
-            </th>
-            <th>
-                @Html.ActionLink(Html.DisplayNameFor(modelItem => first.Date).ToString(), "Index", new { sortExp = "date", sortOrder = (ViewBag.SortExpression == "date" ? (ViewBag.SortOrder == "desc" ? "asc" : "desc") : "asc") })
-            </th>
-            <th>
-                @Html.DisplayNameFor(modelItem => first.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(modelItem => first.Amount)
-            </th>
-
-            <th></th>
-            <th></th>
-        </tr>
-        foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Artist)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Venue)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Amount)
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "Details", new {  id = item.Id  })
-                </td>
-                <td>
-                    @Ajax.ActionLink("Add to Cart", "AddToCart", "ShoppingCart", new { @item.Id }, new AjaxOptions
-                       {
-                           UpdateTargetId = "shoppingcartsummary",
-                           InsertionMode = InsertionMode.Replace,
-                           HttpMethod = "Get"
-                       }, new { @class = "inline-block" })
-                </td>
-
-            </tr>
+@if (Model != null) {
+    <div class="row">
+        @foreach (var item in Model) {
+            <div class="col-md-6 col-xl-4">
+                <div class="card my-1">
+                    <img class="card-img-top img-fluid" src="http://placehold.it/350x200"/>
+                    <div class="card-block">
+                        <h4 class="text-center">@Html.DisplayFor(modelItem => item.Artist)</h4>
+                        <table class="table my-0">
+                            <tr>
+                                <th>@Html.DisplayNameFor(modelItem => item.Venue)</th>
+                                <td>@Html.DisplayFor(modelItem => item.Venue)</td>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <td>@item.Date.ToShortDateString()</td>
+                            </tr>
+                            <tr>
+                                <th>Time</th>
+                                <td>@item.Date.ToShortTimeString()</td>
+                            </tr>
+                            <tr>
+                                <th>@Html.DisplayNameFor(modelItem => item.Price)</th>
+                                <td>@Html.DisplayFor(modelItem => item.Price)</td>
+                            </tr>
+                            <tr>
+                                <th>@Html.DisplayNameFor(modelItem => item.Amount)</th>
+                                <td>@Html.DisplayFor(modelItem => item.Amount)</td>
+                            </tr> 
+                        </table>
+                        <div class="container row flex-column flex-sm-row justify-content-around">
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info my-2" })
+                            @Ajax.ActionLink("Add to Cart", "AddToCart", "ShoppingCart", new { @item.Id }, new AjaxOptions {
+                                UpdateTargetId = "shoppingcartsummary",
+                                InsertionMode = InsertionMode.Replace,
+                                HttpMethod = "Get"
+                            }, new { @class = "btn btn-primary my-2" })
+                        </div>
+                    </div>
+                </div>
+            </div>
         }
-    }
-</table>
+    </div>
+}
 
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 

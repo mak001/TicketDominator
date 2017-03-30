@@ -17,7 +17,8 @@ namespace TicketDominator.Models
         [Range (1, 100)]
         public int Quantity { get; set; }
 
-        public Double PricePaidEach { get; set; }
+		[DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+		public Double PricePaidEach { get; set; }
 
     }
 }

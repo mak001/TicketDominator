@@ -1,5 +1,22 @@
-﻿header .jumbotron {
+﻿html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    background-image: url(/Content/Images/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+header .jumbotron {
     margin: 0;
+    background: linear-gradient(rgba(255, 255, 255, 0.75), 
+        rgba(255, 255, 255, 0.75)), 
+        url(/Content/Images/tickets.jpg);
+    background-size: cover;
+    background-position: center;
 }
 
 header + nav {
@@ -25,6 +42,21 @@ header + nav .nav-link:hover {
     background-color: white;
 }
 
+header a {
+    text-decoration: none;
+    color: black;
+}
+
+header a:hover, header a:focus {
+    text-decoration: none;
+    color: black;
+}
+
+main {
+    flex-grow: 1;
+    background-color: white;
+}
+
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
@@ -42,4 +74,9 @@ textarea {
 #shoppingcartsummary {
     color: #9d9d9d;
     padding: 5px 0;
+}
+
+footer {
+    color: white;
+    background-color: black;
 }

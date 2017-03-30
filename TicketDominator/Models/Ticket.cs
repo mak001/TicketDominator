@@ -14,8 +14,9 @@ namespace TicketDominator.Models
         public string Artist { get; set; }
         public string Venue { get; set; }
         public DateTime Date { get; set; }
-        public float Price { get; set; }
+
+		[DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+		public float Price { get; set; }
         public int Amount { get; set; }
-		
-    }
+	}
 }

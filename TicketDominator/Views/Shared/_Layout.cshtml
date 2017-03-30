@@ -13,7 +13,7 @@
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
-<body>
+<body class="d-flex flex-column">
     <header>
         <a href="@homeLink">
             <div class="jumbotron jumbotron-fluid bg-warning text-center">
@@ -52,20 +52,21 @@
         </div>
     </nav>
 
-    <main class="container my-4">
+    <main class="container px-5 py-4">
         @RenderBody()
-        <hr />
         
     </main>
 
-    <footer>
-        <p>&copy; @DateTime.Now.Year - Ticket Dominator</p>
+    <footer class="py-3">
+        <div class="container">
+            <p>&copy; @DateTime.Now.Year - Ticket Dominator</p>
+        </div>
     </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/bootstrap-datetimepicker")
-    @Scripts.Render("~/bundles/jqueryajax");
+    @Scripts.Render("~/bundles/jqueryajax")
     @RenderSection("scripts", required: false)
     <script>
         $(function () {
