@@ -13,17 +13,42 @@ namespace TicketDominator.Controllers
         // GET: Order
         public ActionResult Index()
         {
-            return View();
+			using (TicketDominatorContext context = new TicketDominatorContext()) {
+				var UserId = UserHelper.GetUserId();
+
+				List<Order> orders = context.Orders.ToList();
+
+				if (!User.IsInRole("Admin")) {
+					orders = context.Orders.Where(x => x.UserId == UserId).ToList();
+				}
+
+				return View(orders);
+			}
         }
 
-		public ActionResult Details(int id) {
+		public ActionResult Details(int? id) {
+			if (id == null) {
+				return this.RedirectToAction("Index");
+			}
+
 			Guid UserID = UserHelper.GetUserId();
 			ViewBag.ApplicationUser = UserHelper.GetApplicationUser();
 
 			using (TicketDominatorContext context = new TicketDominatorContext()) {
-				var order = context.Orders
-					.Include(p => p.OrderDetails.Select(c => c.Ticket))
-					.FirstOrDefault(x => x.Id == id && x.UserId == UserID);
+				IQueryable<Order> orders = context.Orders.Include(p => p.OrderDetails.Select(c => c.Ticket));
+
+				Order order;
+
+				if (User.IsInRole("Admin")) {
+					order = orders.FirstOrDefault(x => x.Id == id);
+				} else {
+					order = orders.FirstOrDefault(x => x.Id == id && x.UserId == UserID);
+				}
+
+				if (order == null) {
+					return this.RedirectToAction("Index");
+				}
+
 				return View(order);
 			}
 		}

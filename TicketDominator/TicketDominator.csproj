@@ -148,8 +148,9 @@
       <HintPath>..\packages\X.PagedList.5.3.0.5300\lib\portable-net45+wp8+win8\X.PagedList.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="X.PagedList.Mvc">
-      <HintPath>..\packages\X.PagedList.Mvc.5.3.0.5300\lib\net46\X.PagedList.Mvc.dll</HintPath>
+    <Reference Include="X.PagedList.Mvc, Version=5.1.0.33787, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\X.PagedList.Mvc.5.1.0.5000\lib\net45\X.PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -309,9 +310,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -344,6 +342,7 @@
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\ShoppingCart\Details.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
+    <Content Include="Views\Order\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

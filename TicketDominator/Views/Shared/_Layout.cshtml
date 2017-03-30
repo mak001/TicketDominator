@@ -38,11 +38,11 @@
                     <a class="nav-item nav-link px-3" href="@homeLink">Home</a>
 
                     @if (!User.IsInRole("Admin")) {
-
                         @Html.ActionLink("Cart", "Index", "ShoppingCart", new { area = "" }, new { @class = "nav-item nav-link px-3" })
-                        if (Request.IsAuthenticated) {
-                            @Html.ActionLink("Orders", "Index", "Order", new { area = "" }, new { @class = "nav-item nav-link px-3" })
-                        } 
+                    }
+
+                    @if (Request.IsAuthenticated) {
+                        @Html.ActionLink("Orders", "Index", "Order", new { area = "" }, new { @class = "nav-item nav-link px-3" })
                     }
 
                     @Html.Partial("_LoginPartial")

@@ -10,6 +10,10 @@ namespace TicketDominator.Controllers
         // GET: Tickets
         public ActionResult Index(int page = 1, int pageQty = 12, string sortExp = "date", string sortOrder = "asc")
         {
+			if (User.IsInRole("Admin")) {
+				return this.RedirectToAction("Index", "AdminTickets");
+			}
+
 			using (TicketDominatorContext context = new TicketDominatorContext()) {
 				ViewBag.SortExpression = sortExp;
 				ViewBag.SortOrder = sortOrder;
@@ -51,6 +55,10 @@ namespace TicketDominator.Controllers
         // GET: Tickets/Details/5
         public ActionResult Details(int? id)
         {
+			if (User.IsInRole("Admin")) {
+				return this.RedirectToAction("Index", "AdminTickets");
+			}
+
 			if (id == null) {
 				return RedirectToAction("Index");
 			}
