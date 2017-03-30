@@ -1,71 +1,77 @@
 ﻿@model IEnumerable<TicketDominator.Models.ShoppingCart>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Cart";
 }
 
-<h2>Index</h2>
+<h2>Cart</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Ticket.Artist)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ticket.Venue)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DateAdded)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Quantity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ticket.Price)
-        </th>
-        <th></th>
-    </tr>
+@if (ViewBag.Summary.Quantity == 0) {
+    <h3>You have nothing in your cart.</h3>
+    @Html.ActionLink("Tickets", "Index", "Tickets", null, new { @class = "btn btn-primary" })
+} else {
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(model => item.Ticket.Artist)
-        </td>
-        <td>
-            @Html.DisplayFor(model => item.Ticket.Venue)
-        </td>
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.DateAdded)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-            $@Html.DisplayFor(modelItem => item.Ticket.Price)
-        </td>
-        <td>
-            <!--@Html.ActionLink("Delete", "Delete", new { id=item.Id })-->
-        </td>
-    </tr>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Ticket.Artist)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ticket.Venue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateAdded)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ticket.Price)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.Ticket.Artist)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Ticket.Venue)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateAdded)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ticket.Price)
+                </td>
+                <td>
+                    <!--@Html.ActionLink("Delete", "Delete", new { id = item.Id })-->
+                </td>
+            </tr>
+        }
+        <tr>
+            <th colspan="6">
+                Total
+            </th>
+        </tr>
+        <tr>
+            <td colspan="3"></td>
+            <td>
+                @ViewBag.Summary.Quantity
+            </td>
+            <td>
+                @string.Format("{0:C}",ViewBag.Summary.TotalValue)
+            </td>
+            <td></td>
+        </tr>
+    </table>
+
+    <div>
+        @Html.ActionLink("Check out", "Checkout", null, new { @class = "btn btn-primary" })
+    </div>
 }
-    <tr>
-        <th colspan="6">
-            Total
-        </th>
-    </tr>
-    <tr>
-        <td colspan="3"></td>
-        <td>
-            @ViewBag.Summary.Quantity
-        </td>
-        <td>
-            $@ViewBag.Summary.TotalValue
-        </td>
-        <td></td>
-    </tr>
-</table>
-
-<div>
-    <a class="checkout" href="/Cart/Checkout">Check Out</a>
-</div>
