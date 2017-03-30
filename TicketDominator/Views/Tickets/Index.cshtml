@@ -1,5 +1,8 @@
-﻿@model PagedList.IPagedList<TicketDominator.Models.Ticket>
-@using PagedList.Mvc;
+﻿@model X.PagedList.IPagedList<TicketDominator.Models.Ticket>
+
+@using X.PagedList;
+@using X.PagedList.Mvc;
+@using System.Collections;
 
 @{
     ViewBag.Title = "Index";
@@ -66,4 +69,15 @@
 
 Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortExp = ViewBag.SortExpression, sortOrder = ViewBag.SortOrder }))
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortExp = ViewBag.SortExpression, sortOrder = ViewBag.SortOrder }), new PagedListRenderOptions {
+    UlElementClasses = new List<string> {
+        "pagination",
+        "justify-content-center"
+    },
+    LiElementClasses = new List<string> {
+        "page-item"
+    },
+    PageClasses = new List<string> {
+        "page-link"
+    }
+})
