@@ -13,6 +13,8 @@ namespace TicketDominator.Controllers
         // GET: Order
         public ActionResult Index()
         {
+			ViewBag.ApplicationUser = UserHelper.GetApplicationUser();
+
 			using (TicketDominatorContext context = new TicketDominatorContext()) {
 				var UserId = UserHelper.GetUserId();
 

@@ -2,10 +2,9 @@
 
 @if (Model != null && Model.Quantity > 0)
 {
-    <div>Items in Cart: @Model.Quantity</div>
-    <div>Value: @Model.TotalValue.ToString("C")</div>
+   @Model.Quantity
 }
 else
 {
-    <div>Your cart is empty</div>
+    @Html.Raw(0)
 }

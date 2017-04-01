@@ -38,7 +38,13 @@
                     <a class="nav-item nav-link px-3" href="@homeLink">Home</a>
 
                     @if (!User.IsInRole("Admin")) {
-                        @Html.ActionLink("Cart", "Index", "ShoppingCart", new { area = "" }, new { @class = "nav-item nav-link px-3" })
+                        <a href="@Url.Action("Index", "ShoppingCart")" class="nav-item nav-link px-3">Cart
+                            <span id="shoppingcartsummary" class="badge badge-pill badge-danger">
+                                @if (!User.IsInRole("Admin") && !userIsCheckingOut) {
+                                    @Html.Action("Partial", "ShoppingCart")
+                                }
+                            </span>
+                        </a>
                     }
 
                     @if (Request.IsAuthenticated) {

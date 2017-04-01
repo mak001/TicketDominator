@@ -1,63 +1,51 @@
 ﻿@model TicketDominator.Models.Ticket
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Ticket Details";
 }
 
 <h2>Details</h2>
 
-<div>
-    <h4>Ticket</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Artist)
-        </dt>
+<div class="row">
+    <div class="col-12">
+        <div class="card my-1">
+            <img class="card-img-top img-fluid" src="http://placehold.it/700x200" />
+            <div class="card-block">
+                <h4 class="text-center">@Html.DisplayFor(model => model.Artist)</h4>
+                <table class="table my-0">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Venue)</th>
+                        <td>@Html.DisplayFor(model => model.Venue)</td>
+                    </tr>
+                    <tr>
+                        <th>Date</th>
+                        <td>@Model.Date.ToShortDateString() </ td >
+                    </tr>
+                    <tr>
+                        <th>Time</th>
+                        <td>@Model.Date.ToShortTimeString()</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Price)</th>
+                        <td>@Html.DisplayFor(model => model.Price)</td>
+                    </tr>
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model.Amount)</th>
+                        <td>@Html.DisplayFor(model => model.Amount)</td>
+                    </tr>
+                </table>
+                <div class="container row flex-column flex-sm-row justify-content-around mx-auto">
+                    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-info my-2" })
 
-        <dd>
-            @Html.DisplayFor(model => model.Artist)
-        </dd>
+                    @Ajax.ActionLink("Add to Cart", "AddToCart", "ShoppingCart", new { @Model.Id }, new AjaxOptions {
+                        UpdateTargetId = "shoppingcartsummary",
+                        InsertionMode = InsertionMode.Replace,
+                        HttpMethod = "Get"
+                    }, new { @class = "btn btn-primary my-2" })
+                </div>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Venue)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Venue)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Amount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Amount)
-        </dd>
-
-    </dl>
-
-    @Ajax.ActionLink("Add to Cart", "AddToCart", "ShoppingCart", new { @Model.Id }, new AjaxOptions {
-        UpdateTargetId = "shoppingcartsummary",
-        InsertionMode = InsertionMode.Replace,
-        HttpMethod = "Get"
-    }, new { @class = "inline-block" })
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    
