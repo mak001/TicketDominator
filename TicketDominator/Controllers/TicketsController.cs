@@ -68,6 +68,11 @@ namespace TicketDominator.Controllers {
 			using (TicketDominatorContext context = new TicketDominatorContext()) {
 				result = context.Tickets.FirstOrDefault(x => x.Id == id);
 			}
+
+			if (Request.IsAjaxRequest()) {
+				return Json(result, JsonRequestBehavior.AllowGet);
+			}
+
 			return View(result);
 		}
 
