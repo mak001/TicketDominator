@@ -44,9 +44,17 @@ namespace TicketDominator.Controllers {
 
 		public static ApplicationUser GetApplicationUser() {
 			string userId = HttpContext.Current.User.Identity.GetUserId();
-			ApplicationUserManager aum = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
-			return aum.FindById(userId);
+			return GetApplicationUser(userId);
+		}
+
+		public static ApplicationUser GetApplicationUser(Guid id) {
+			return GetApplicationUser(id.ToString());
+		}
+
+		public static ApplicationUser GetApplicationUser(string id) {
+			ApplicationUserManager aum = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+			return aum.FindById(id);
 		}
 
 		public static void TransferTemporaryUserToRealUser(Guid tempId, string userId) {

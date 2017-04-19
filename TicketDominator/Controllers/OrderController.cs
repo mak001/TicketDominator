@@ -24,6 +24,10 @@ namespace TicketDominator.Controllers
 					orders = context.Orders.Where(x => x.UserId == UserId).ToList();
 				}
 
+				if (Request.IsAjaxRequest()) {
+					return Json(orders, JsonRequestBehavior.AllowGet);
+				}
+
 				return View(orders);
 			}
         }
@@ -49,6 +53,10 @@ namespace TicketDominator.Controllers
 
 				if (order == null) {
 					return this.RedirectToAction("Index");
+				}
+
+				if (Request.IsAjaxRequest()) {
+					return Json(order, JsonRequestBehavior.AllowGet);
 				}
 
 				return View(order);

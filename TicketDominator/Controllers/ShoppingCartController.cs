@@ -32,6 +32,11 @@ namespace TicketDominator.Controllers
 				ViewBag.Summary = GetShoppingCartSummary(context);
 
 				var carts = context.ShoppingCarts.Include("Ticket").Where(x => x.UserId == UserId);
+
+				if (Request.IsAjaxRequest()) {
+					return Json(carts.ToList(), JsonRequestBehavior.AllowGet);
+				}
+
 				return View(carts.ToList());
 			}
         }

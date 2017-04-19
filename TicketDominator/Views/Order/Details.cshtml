@@ -1,4 +1,6 @@
 ﻿@model TicketDominator.Models.Order
+
+@using TicketDominator.Controllers;
 @{
     TicketDominator.Models.ApplicationUser au = ViewBag.ApplicationUser;
 }
@@ -6,7 +8,7 @@
     @if (Model != null) {
     <h4>Order #@Model.Id</h4>
     <hr />
-    <div>@au.Email</div>
+    <div>@UserHelper.GetApplicationUser(Model.UserId).Email</div>
     <br />
 
     <div>

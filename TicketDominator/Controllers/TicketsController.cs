@@ -3,14 +3,11 @@ using X.PagedList;
 using System.Web.Mvc;
 using TicketDominator.Models;
 
-namespace TicketDominator.Controllers
-{
-    public class TicketsController : Controller
-    {
-        // GET: Tickets
-        public ActionResult Index(int page = 1, int pageQty = 12, string sortExp = "date", string sortOrder = "asc")
-        {
-			if (User.IsInRole("Admin")) {
+namespace TicketDominator.Controllers {
+	public class TicketsController : Controller {
+		// GET: Tickets
+		public ActionResult Index(int page = 1, int pageQty = 12, string sortExp = "date", string sortOrder = "asc") {
+			if (User.IsInRole("Admin") && !Request.IsAjaxRequest()) {
 				return this.RedirectToAction("Index", "AdminTickets");
 			}
 
@@ -48,13 +45,17 @@ namespace TicketDominator.Controllers
 						break;
 				}
 
-				return View(items.ToPagedList(page, pageQty));
+				var list = items.ToPagedList(page, pageQty);
+
+				if (Request.IsAjaxRequest()) {
+					return Json(list, JsonRequestBehavior.AllowGet);
+				}
+				return View(list);
 			}
 		}
 
-        // GET: Tickets/Details/5
-        public ActionResult Details(int? id)
-        {
+		// GET: Tickets/Details/5
+		public ActionResult Details(int? id) {
 			if (User.IsInRole("Admin")) {
 				return this.RedirectToAction("Index", "AdminTickets");
 			}
@@ -67,8 +68,13 @@ namespace TicketDominator.Controllers
 			using (TicketDominatorContext context = new TicketDominatorContext()) {
 				result = context.Tickets.FirstOrDefault(x => x.Id == id);
 			}
+
+			if (Request.IsAjaxRequest()) {
+				return Json(result, JsonRequestBehavior.AllowGet);
+			}
+
 			return View(result);
 		}
 
-    }
+	}
 }

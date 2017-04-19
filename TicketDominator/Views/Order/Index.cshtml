@@ -1,12 +1,11 @@
 ﻿@model IEnumerable<TicketDominator.Models.Order>
 
-@{ 
-    TicketDominator.Models.ApplicationUser au = ViewBag.ApplicationUser;
-}
+@using TicketDominator.Controllers;
+
 <table class="table">
     <tr>
         <th>
-            User email
+            Email
         </th>
         <th>
             @Html.DisplayNameFor(model => model.OrderDate)
@@ -17,7 +16,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @au.Email
+            @UserHelper.GetApplicationUser(item.UserId).Email
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.OrderDate)
