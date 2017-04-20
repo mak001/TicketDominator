@@ -45,12 +45,10 @@ namespace TicketDominator.Controllers {
 						break;
 				}
 
-				var list = items.ToPagedList(page, pageQty);
-
 				if (Request.IsAjaxRequest()) {
-					return Json(list, JsonRequestBehavior.AllowGet);
+					return Json(items.ToList(), JsonRequestBehavior.AllowGet);
 				}
-				return View(list);
+				return View(items.ToPagedList(page, pageQty));
 			}
 		}
 
@@ -67,10 +65,6 @@ namespace TicketDominator.Controllers {
 			Ticket result = null;
 			using (TicketDominatorContext context = new TicketDominatorContext()) {
 				result = context.Tickets.FirstOrDefault(x => x.Id == id);
-			}
-
-			if (Request.IsAjaxRequest()) {
-				return Json(result, JsonRequestBehavior.AllowGet);
 			}
 
 			return View(result);
