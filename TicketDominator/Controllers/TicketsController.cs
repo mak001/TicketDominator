@@ -48,7 +48,7 @@ namespace TicketDominator.Controllers {
 				var list = items.ToPagedList(page, pageQty);
 
 				if (Request.IsAjaxRequest()) {
-					return Json(list, JsonRequestBehavior.AllowGet);
+					return Json(items.ToList(), JsonRequestBehavior.AllowGet);
 				}
 				return View(list);
 			}

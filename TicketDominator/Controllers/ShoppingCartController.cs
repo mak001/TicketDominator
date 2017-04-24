@@ -48,7 +48,7 @@ namespace TicketDominator.Controllers
 			}
 		}
 
-		public ActionResult AddToCart(int id)
+		public ActionResult AddToCart(int id, bool mobile = false)
         {
             using (TicketDominatorContext context = new TicketDominatorContext())
             {
@@ -75,10 +75,14 @@ namespace TicketDominator.Controllers
                     context.SaveChanges();
                 }
                 ShoppingCartSummary summary = GetShoppingCartSummary(context);
-                return PartialView("_AjaxCartSummary", summary);
+
+				if (mobile) {
+					return Json(summary, JsonRequestBehavior.AllowGet);
+				} else {
+					return PartialView("_AjaxCartSummary", summary);
+				}
             }
         }
-
 
 		[Authorize]
 		[HttpGet]
