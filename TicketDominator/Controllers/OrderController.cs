@@ -55,10 +55,6 @@ namespace TicketDominator.Controllers
 					return this.RedirectToAction("Index");
 				}
 
-				if (Request.IsAjaxRequest()) {
-					return Json(order, JsonRequestBehavior.AllowGet);
-				}
-
 				return View(order);
 			}
 		}
